@@ -92,7 +92,7 @@ const FractalCanvas = ({realValue1, imgValue1, realValue2, imgValue2, scale, sch
 
     useEffect(() => {
         if (!!context && loaded){
-            let k = lastZoom > zoom ? 0.05 : -0.05;
+            let k = lastZoom > zoom ? 0.2 : -0.2;
             context.scale(1 - k, 1 - k);
             draw();
         }
@@ -111,7 +111,7 @@ const FractalCanvas = ({realValue1, imgValue1, realValue2, imgValue2, scale, sch
                     height: '100%',
                 }}
                 width={660}
-                height={500}
+                height={650}
             />
     </div>
     )

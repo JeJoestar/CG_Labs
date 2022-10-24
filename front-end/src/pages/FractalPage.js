@@ -48,7 +48,7 @@ const FractalPage = () => {
                     fontSize: '28px',
                     lineHeight: '30px',
                     fontWeight: '700',
-                    marginTop: '78px',
+                    marginTop: '180px',
                     marginLeft: '35px',
                     textAlign: 'center',
                     justifyContent: 'space-around',

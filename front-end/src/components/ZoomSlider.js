@@ -2,15 +2,17 @@ import * as React from 'react';
 import Slider from '@mui/material/Slider';
 import { BsZoomIn } from 'react-icons/bs'
 
-const ZoomSlider = ({value, onChange}) => {
+const ZoomSlider = ({value, onChange, withIcon = true, width}) => {
     return (
         <div style={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
-            <BsZoomIn fill='white' size={32}/>
+            {withIcon && (
+                <BsZoomIn fill='white' size={32}/>
+            )}
             <Slider step={10} defaultValue={30}
                 value={value}
                 onChange={onChange}
                 sx={{
-                    width: '260px',
+                    width: !!width ? width : '260px',
                     marginX: '13px',
                     '& 	.MuiSlider-track': {
                         color: '#EC5939'

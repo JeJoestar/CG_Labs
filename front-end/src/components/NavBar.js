@@ -21,7 +21,7 @@ const NavBar = ({ activeTab }) => {
         navigation(path);
     }
     return (
-        <header className="flex bg-black h-[100px] py-8 font-body justify-between">
+        <header className="absolute w-full flex bg-black h-[100px] py-8 font-body justify-between">
             <SaturnLogo />
             <Stack direction="row">
                 {tabs.map((tab, index) => (
