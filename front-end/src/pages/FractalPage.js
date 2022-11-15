@@ -5,6 +5,33 @@ import TextInput from '../components/TextInput';
 import FractalColorPicker from '../components/FractalColorPicker';
 import ZoomSlider from '../components/ZoomSlider';
 import FractalCanvas from '../components/FractalCanvas';
+import InfoButton from '../components/InfoButton';
+import InfoModal from '../components/InfoModal';
+import MandelbrotEquation from '../mandelbrot-equation.png'
+import FunctionSequence from '../function-sequence.png'
+
+const modalHeader = "АФІННІ ПЕРЕТВОРЕННЯ";
+const ModalContent = () => {
+  return (
+    <Typography 
+      color={'black'}
+      style={{
+        fontFamily: 'Montserrat',
+        fontSize: '24px',
+        lineHeight: '30px',
+        fontWeight: '500',
+      }}
+    >
+        Обмежена та зв'язна множина на комплексній площині, межа якої утворює фрактал. 
+        Множина Мандельброта це множина комплексних чисел c, для яких функція
+        <img style={{display: 'inline', marginRight: '10px'}} src={MandelbrotEquation} width={138} />                        
+        не розходиться, якщо її ітерувати від значення <strong>z=0</strong>, тобто, для якої послідовність 
+        <img style={{display: 'inline'}} src={FunctionSequence} width={180} />
+        , і так далі, залишається обмеженою в абсолютному значенні. 
+        Названа на честь Бенуа Мандельброта, який вивчав і популяризував її.
+    </Typography>
+  )
+}
 
 const FractalPage = () => {
     const [scheme, setScheme] = useState('Різнокольорова');
@@ -13,6 +40,8 @@ const FractalPage = () => {
     const [realC2, setRealC2] = useState(2);
     const [imgC2, setImgC2] = useState(1);
     const [zoom, setZoom] = useState(0);
+    const [modalOpen, setModalOpen] = useState(false);
+
     const handleSchemeChange = (event) => {
         setScheme(event.target.value);
     }
@@ -39,8 +68,9 @@ const FractalPage = () => {
     }
 
     return (
+    <>
+        <NavBar activeTab={1} />
         <div className='bg-black' style={{ display: 'flex', flexDirection: 'column', height: '100%'}}>
-            <NavBar activeTab={1} />
             <div 
                 className='bg-black' 
                 style={{
@@ -51,7 +81,8 @@ const FractalPage = () => {
                     marginTop: '180px',
                     marginLeft: '35px',
                     textAlign: 'center',
-                    justifyContent: 'space-around',
+                    gap: '140px',
+                    justifyContent: 'center',
                     display: 'flex'
                 }}
             >
@@ -63,19 +94,31 @@ const FractalPage = () => {
                         padding: '0 100px 40px 100px',
                     }}
                 >
-                    <div>
-                        <span className="text-white text-bold font-body">
-                            ФРАКТАЛ МАНДЕЛЬБРОТА
-                        </span>
-                    </div>
+                    <Typography
+                        color={'#FFFFFF'}
+                        fontSize={'30px'}
+                        fontWeight={700}
+                        fontFamily={'Montserrat'}
+                        lineHeight={'37px'}
+                        style={{
+                            display: 'flex',
+                            gap: '10px'
+                        }}
+                    >
+                        ФРАКТАЛ МАНДЕЛЬБРОТА
+                    <InfoButton size1={36} onClick={() => setModalOpen(true)}/>
+                    </Typography>
                     <div 
                         style={{
-                            marginTop: '35px'
-                        }
-                    }>
-                        <Typography color={'white'} fontFamily={'Montserrat'} style={{
+                            marginTop: '65px'
+                        }}
+                    >
+                        <Typography 
+                            color={'white'} 
+                            fontFamily={'Montserrat'} 
+                            style={{
                                 fontFamily: 'Montserrat',
-                                fontSize: '20px',
+                                fontSize: '25px',
                                 lineHeight: '30px',
                                 fontWeight: '600',
                                 marginBottom: '25px'
@@ -160,7 +203,7 @@ const FractalPage = () => {
                     </div>
                     <div 
                         style={{
-                            marginTop: '35px'
+                            marginTop: '65px'
                         }}
                     >
                         <Typography 
@@ -168,7 +211,7 @@ const FractalPage = () => {
                             fontFamily={'Montserrat'} 
                             style={{
                                 fontFamily: 'Montserrat',
-                                fontSize: '20px',
+                                fontSize: '25px',
                                 lineHeight: '30px',
                                 fontWeight: '600',
                                 marginBottom: '25px'
@@ -183,7 +226,7 @@ const FractalPage = () => {
                     </div>
                     <div 
                         style={{
-                            marginTop: '35px'
+                            marginTop: '65px'
                         }}
                     >
                         <Typography 
@@ -191,7 +234,7 @@ const FractalPage = () => {
                             fontFamily={'Montserrat'} 
                             style={{
                                 fontFamily: 'Montserrat',
-                                fontSize: '20px',
+                                fontSize: '25px',
                                 lineHeight: '30px',
                                 fontWeight: '600',
                                 marginBottom: '25px'
@@ -215,6 +258,13 @@ const FractalPage = () => {
                 </div>
             </div>
         </div>
+        <InfoModal
+          open={modalOpen}
+          handleClose={() => setModalOpen(false)}
+          header={modalHeader}
+          text={<ModalContent />}
+        />
+        </>
     )
 }
 

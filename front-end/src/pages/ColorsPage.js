@@ -6,6 +6,8 @@ import Divider from '../components/Divider';
 import ZoomSlider from '../components/ZoomSlider';
 import Download from '../download.png'
 import Upload from '../upload.png'
+import InfoButton from '../components/InfoButton';
+import InfoModal from '../components/InfoModal';
 
 let ctx1 = null;
 let ctx2 = null;
@@ -65,6 +67,29 @@ const RGBtoCMYK = (r, g, b) => {
   return [((c1 - k)/(1 - k)).toFixed(1), ((m1 - k)/(1 - k)).toFixed(1), ((y1 - k)/(1 - k)).toFixed(1), (k).toFixed(1)];
 }
 
+const modalHeader = "КОЛІРНІ МОДЕЛІ";
+const ModalContent = () => {
+  return (
+    <Typography 
+      color={'black'}
+      style={{
+        fontFamily: 'Montserrat',
+        fontSize: '24px',
+        lineHeight: '30px',
+        fontWeight: '500',
+      }}
+    >
+        CMYK - субтрактивна модель, вона використовується для підготовки не екранних,
+        а друкованих зображень, тобто для пристроїв, які реалізують принцип поглинання (віднімання) кольорів.
+        Базові кольори моделі CMYK: C - Cyan (блакитний), M - Magenta (пурпурний), Y - Yellow (жовтий) , K - Black (чорний).
+        <br/>
+        <br/>
+        HSL (скорочено від англ. Hue, Saturation, Lightness) — колірна модель, в якій будь-який колір визначається трьома
+        характеристиками: кольоровим тоном (англ. Hue), насиченістю (англ. Saturation), «світністю» (англ. Lightness), тобто
+        близькістю до білого кольору.
+    </Typography>
+  )
+}
 
 const ColorsPage = () => {
   const canvasRef1 = useRef(null)
@@ -73,6 +98,8 @@ const ColorsPage = () => {
   const [file, setFile] = useState();
   const [hsl, setHsl] = useState([0, 0, 0]);
   const [cmyk, setCmyk] = useState([0, 0, 0, 0]);
+  const [modalOpen, setModalOpen] = useState(false);
+
 
   const inputRef = useRef(null);
 
@@ -139,7 +166,6 @@ const ColorsPage = () => {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.src = file ||'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkd9p1ahb6U2rCcTKEt3fNeEBz-q7QpBko2y7Zq-1H4tg4BAJroaEG86RPqvSRNUTzzRU&usqp=CAU'
-    //img.src = 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/35302887-bf5b-4c46-a9e0-fc72c65ffb50/d2zaii3-22e60a2b-a164-44bd-a487-cb16589a4799.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzM1MzAyODg3LWJmNWItNGM0Ni1hOWUwLWZjNzJjNjVmZmI1MFwvZDJ6YWlpMy0yMmU2MGEyYi1hMTY0LTQ0YmQtYTQ4Ny1jYjE2NTg5YTQ3OTkuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.hm2OTe9W756fttOuga2kQ5lWBIWQcTyfHkS8qvTygyQ'
 
     img.onload = () => {
       const canvas1 = canvasRef1.current
@@ -197,18 +223,21 @@ const ColorsPage = () => {
           alignItems: 'center',
         }}
       >
-        <Typography
-          color={'#FFFFFF'}
-          fontSize={'30px'}
-          fontWeight={700}
-          fontFamily={'Montserrat'}
-          lineHeight={'37px'}
-          style={{
-            marginTop: '160px'
-          }}
-        >
-          КОЛІРНІ МОДЕЛІ
-        </Typography>
+          <Typography
+            color={'#FFFFFF'}
+            fontSize={'30px'}
+            fontWeight={700}
+            fontFamily={'Montserrat'}
+            lineHeight={'37px'}
+            style={{
+              marginTop: '160px',
+              display: 'flex',
+              gap: '10px'
+            }}
+          >
+            КОЛІРНІ МОДЕЛІ
+          <InfoButton size1={36} onClick={() => setModalOpen(true)}/>
+          </Typography>
         <div className='flex'
           style={{
             minHeight: '478px',
@@ -331,6 +360,12 @@ const ColorsPage = () => {
           <ZoomSlider withIcon={false} width={'284px'} onChange={changeLightnessHandler}/>
         </div>
       </div>
+      <InfoModal
+        open={modalOpen}
+        handleClose={() => setModalOpen(false)}
+        header={modalHeader}
+        text={<ModalContent />}
+      />
     </>
   )
 }

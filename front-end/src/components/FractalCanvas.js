@@ -111,7 +111,7 @@ const FractalCanvas = ({realValue1, imgValue1, realValue2, imgValue2, scale, sch
                     height: '100%',
                 }}
                 width={660}
-                height={650}
+                height={660}
             />
     </div>
     )

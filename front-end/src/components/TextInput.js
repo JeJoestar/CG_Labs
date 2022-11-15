@@ -1,7 +1,20 @@
 import React from 'react';
 import './TextInput.css'
 
-const TextInput = ({label, labelColor, color, width, onChange, value, marginTop, marginBottom, marginLeft, marginRight, readOnly = false}) => {
+const TextInput = ({
+    label,
+    labelColor,
+    color,
+    width,
+    onChange,
+    value,
+    marginTop,
+    marginBottom,
+    marginLeft,
+    marginRight,
+    type = 'text',
+    readOnly = false
+}) => {
     return (
         <div>
             <label 
@@ -32,7 +45,7 @@ const TextInput = ({label, labelColor, color, width, onChange, value, marginTop,
                     fontWeight: '500',
                     width: width || '260px' 
                 }}
-                type={'text'}
+                type={type}
                 onChange={onChange}
                 value={value}
                 readOnly={readOnly}

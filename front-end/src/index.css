@@ -8,3 +8,29 @@ html, body, #fullheight, #root {
   min-height: 100% !important;
   height: 100%;
 }
+
+
+.zoom {
+  transition: transform .2s; /* Animation */
+}
+
+.zoom:hover {
+  transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.zoom:hover img{
+  -webkit-filter: saturate(10%) blur(3px);
+	filter: saturate(10%) blur(3px);
+}
+
+.zoom .title{
+  opacity: 0;
+}
+
+.zoom:hover .title{
+  opacity: 1;
+}
+
+.shadow {
+  position: relative;
+}
